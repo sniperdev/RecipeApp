@@ -1,0 +1,110 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #f2f3f5;
+  font-family: lato, sans-serif;
+  color: #2c2d41;
+}
+.wrapper {
+  padding: 50px;
+}
+.searchField {
+  width: 100%;
+  text-align: center;
+}
+/*TODO: Trzeba jakoś wyliczyć wielkość searchfielda żeby zawsze zajmował całość*/
+.searchField input {
+  width: 80%;
+  height: 80px;
+  border-radius: 18px;
+  font-size: 50px;
+  border: none;
+}
+.searchField button {
+  width: 80px;
+  height: 80px;
+  margin-left: 10px;
+  border-radius: 18px;
+  border: none;
+  background-color: #ffc939;
+}
+.searchField button i {
+  font-size: 50px;
+  color: black;
+}
+.favs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 50px;
+}
+.favs .title {
+  width: 100%;
+  line-height: 100px;
+  font-size: 50px;
+  display: block;
+  text-align: center;
+}
+.fav {
+  width: 20vw;
+  height: 26vw;
+  background-color: white;
+  border-radius: 18px;
+}
+.fav img {
+  width: 18vw;
+  height: 18vw;
+  margin: 1vw 1vw 0 1vw;
+  object-fit: cover;
+  text-align: center;
+  border-radius: 18px;
+}
+.fav h1 {
+  text-align: center;
+  font-size: 35px;
+}
+
+.populars {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 50px 0;
+  width: 100%;
+}
+.populars h1 {
+  display: block;
+  width: 100%;
+  font-size: 40px;
+  line-height: 60px;
+}
+.popular {
+  width: 43vw;
+  border-radius: 18px;
+  margin: 50px 0;
+  background-color: white;
+}
+.popular img {
+  width: 41vw;
+  height: 41vw;
+  margin: 1vw 1vw 0 1vw;
+  object-fit: cover;
+  text-align: center;
+  border-radius: 18px;
+}
+.popular .info {
+  padding: 0 20px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+.info .fa-stopwatch {
+  margin-right: 10px;
+}
+.info .fa-bookmark {
+  float: right;
+  color: gray;
+}
