@@ -51,7 +51,7 @@ body {
 }
 .fav {
   width: 20vw;
-  height: 26vw;
+  min-height: 26vw;
   background-color: white;
   border-radius: 18px;
 }
@@ -64,10 +64,18 @@ body {
   border-radius: 18px;
 }
 .fav h1 {
+  font-size: 20px;
   text-align: center;
-  font-size: 35px;
 }
-
+.fav .fa-x {
+  display: block;
+  margin: 0 auto;
+  width: 90%;
+  border-radius: 18px;
+  background-color: #810202;
+  text-align: center;
+  color: white;
+}
 .populars {
   display: flex;
   flex-wrap: wrap;
@@ -82,14 +90,18 @@ body {
   line-height: 60px;
 }
 .popular {
-  width: 43vw;
+  width: 40vw;
   border-radius: 18px;
   margin: 50px 0;
   background-color: white;
 }
+.popular h1 {
+  font-size: 35px;
+  line-height: 35px;
+}
 .popular img {
-  width: 41vw;
-  height: 41vw;
+  width: 38vw;
+  height: 38vw;
   margin: 1vw 1vw 0 1vw;
   object-fit: cover;
   text-align: center;
