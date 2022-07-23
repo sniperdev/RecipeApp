@@ -11,14 +11,12 @@ async function getMealById(i) {
   const data = await response.json();
   return await data;
 }
-//TODO: querySelector wykonaj tylko raz po co za każdym razem wykonywane jest wyszukiwanie elementu
 async function showMeals() {
+  let populars = document.querySelector(".populars");
   for (let i = 0; i < 4; i++) {
     let meal = await getMealById(i);
     readyMeals.push(meal.meals[0]);
-    document.querySelector(
-      ".populars"
-    ).innerHTML += `<div class="popular"><img src="${readyMeals[i].strMealThumb}"
+    populars.innerHTML += `<div class="popular"><img src="${readyMeals[i].strMealThumb}"
            alt="">
       <div class="info"><h1>${readyMeals[i].strMeal}</h1><i class="fa-solid fa-stopwatch"></i>5 min<i class="fa-solid fa-bookmark"></i>
       </div></div>`;
