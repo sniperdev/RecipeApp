@@ -4,6 +4,7 @@ popular.classList.add("popular");
 
 let mealsToShow = [52771, 53014, 52777, 52841];
 let readyMeals = [];
+
 async function getMealById(i) {
   const response = await fetch(
     "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + mealsToShow[i]
@@ -11,17 +12,19 @@ async function getMealById(i) {
   const data = await response.json();
   return await data;
 }
+
 async function showMeals() {
   let populars = document.querySelector(".populars");
   for (let i = 0; i < 4; i++) {
     let meal = await getMealById(i);
     readyMeals.push(meal.meals[0]);
-    populars.innerHTML += `<div class="popular"><img src="${readyMeals[i].strMealThumb}"
+    populars.innerHTML += `<div class="popular" data-id="${readyMeals[i].idMeal}"><img src="${readyMeals[i].strMealThumb}"
            alt="">
       <div class="info"><h1>${readyMeals[i].strMeal}</h1><i class="fa-solid fa-stopwatch"></i>5 min<i class="fa-solid fa-bookmark"></i>
       </div></div>`;
   }
   findPopular();
+  findTheMeal();
 }
 showMeals();
 
@@ -32,17 +35,20 @@ async function searchMeals(searchField) {
   const data = await response.json();
   return await data;
 }
+
 //TODO: Połącz w jedną funkcje uniwersalną showSearchedMeals oraz showMeals, na pewno da się to zrobić uniwersalne
 function showSearchedMeals(searchedMeals) {
   const searchElement = document.querySelector(".populars");
   searchElement.innerHTML = `<h1>Search results</h1>`;
   for (let i = 0; i < searchedMeals.meals.length; i++) {
-    searchElement.innerHTML += `<div class="popular"><img src="${searchedMeals.meals[i].strMealThumb}"
+    searchElement.innerHTML += `<div class="popular" data-id="${searchedMeals.meals[i].idMeal}"><img src="${searchedMeals.meals[i].strMealThumb}"
            alt="">
       <div class="info"><h1>${searchedMeals.meals[i].strMeal}</h1><i class="fa-solid fa-stopwatch"></i>5 min<i class="fa-solid fa-bookmark"></i>
       </div></div>`;
   }
+  findTheMeal()
 }
+
 async function search() {
   let searchValue = document.querySelector(".searchField input").value;
   let searchedMeals = await searchMeals(searchValue);
@@ -53,12 +59,14 @@ async function search() {
   }
   findPopular();
 }
+
 document.querySelector(".searchField button").addEventListener("click", search);
 document.querySelector(".searchField").addEventListener("keyup", (event) => {
   if (event.keyCode === 13) {
     search();
   }
 });
+
 function findPopular() {
   let favs = document.querySelectorAll(".popular");
   favs.forEach((element) => {
@@ -81,6 +89,7 @@ function findPopular() {
     });
   });
 }
+
 function removeFromPopular(element) {
   let favs = document.querySelectorAll(".fav");
   element.querySelector(".fa-bookmark").removeAttribute("style");
@@ -111,3 +120,8 @@ function findFromFav() {
   });
 }
 findFromFav();
+
+function findTheMeal(){
+  let meals = document.querySelectorAll(".popular");
+  console.log(meals)
+}
