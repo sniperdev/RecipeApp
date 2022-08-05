@@ -7,7 +7,7 @@ let readyMeals = [];
 
 async function getMealById(i) {
   const response = await fetch(
-    "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + mealsToShow[i]
+    "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + i
   );
   const data = await response.json();
   return await data;
@@ -16,10 +16,10 @@ async function getMealById(i) {
 async function showMeals() {
   let populars = document.querySelector(".populars");
   for (let i = 0; i < 4; i++) {
-    let meal = await getMealById(i);
+    let meal = await getMealById(mealsToShow[i]);
+    console.log(meal);
     readyMeals.push(meal.meals[0]);
-    populars.innerHTML += `<div class="popular" data-id="${readyMeals[i].idMeal}"><img src="${readyMeals[i].strMealThumb}"
-           alt="">
+    populars.innerHTML += `<div class="popular" data-id="${readyMeals[i].idMeal}"><img src="${readyMeals[i].strMealThumb}" alt="">
       <div class="info"><h1>${readyMeals[i].strMeal}</h1><i class="fa-solid fa-stopwatch"></i>5 min<i class="fa-solid fa-bookmark"></i>
       </div></div>`;
   }
@@ -46,7 +46,7 @@ function showSearchedMeals(searchedMeals) {
       <div class="info"><h1>${searchedMeals.meals[i].strMeal}</h1><i class="fa-solid fa-stopwatch"></i>5 min<i class="fa-solid fa-bookmark"></i>
       </div></div>`;
   }
-  findTheMeal()
+  findTheMeal();
 }
 
 async function search() {
@@ -71,17 +71,21 @@ function findPopular() {
   let favs = document.querySelectorAll(".popular");
   favs.forEach((element) => {
     let bookmark = element.querySelector(".fa-bookmark");
-
     bookmark.addEventListener("click", () => {
       if (!bookmark.getAttribute("style")) {
         bookmark.style.color = "red";
-        document.querySelector(".favs").innerHTML += `<div class="fav">
+        document.querySelector(
+          ".favs"
+        ).innerHTML += `<div class="fav" data-id="${element.getAttribute(
+          "data-id"
+        )}">
       <img src="${element.querySelector("img").src}"
            alt="${element.querySelector("h1").textContent}"><h1>${
           element.querySelector("h1").textContent
         }</h1><i class="fa-solid fa-x"></i>
       <h1></h1>
     </div>`;
+        findTheMeal();
         findFromFav();
       } else {
         removeFromPopular(element);
@@ -121,7 +125,38 @@ function findFromFav() {
 }
 findFromFav();
 
-function findTheMeal(){
+async function findTheMeal() {
   let meals = document.querySelectorAll(".popular");
-  console.log(meals)
+  let mealsFav = document.querySelectorAll(".fav");
+  console.log(mealsFav);
+  meals.forEach((element) => {
+    element.addEventListener("click", async () => {
+      console.log(element.getAttribute("data-id"));
+      let recipe = await getMealById(element.getAttribute("data-id"));
+      showRecipe(recipe);
+    });
+  });
+  mealsFav.forEach((element) => {
+    element.addEventListener("click", async () => {
+      console.log(element.getAttribute("data-id"));
+      let recipe = await getMealById(element.getAttribute("data-id"));
+      showRecipe(recipe);
+    });
+  });
+}
+
+function showRecipe(recipe) {
+  let recipePopup = document.querySelector(".recipePopup");
+  if (recipePopup.style.display === "none") {
+    recipePopup.style.display = "block";
+    recipePopup.querySelector("h1").textContent = recipe.meals[0].strMeal;
+    recipePopup.querySelector("img").src = recipe.meals[0].strMealThumb;
+    recipePopup.querySelector("span").textContent =
+      recipe.meals[0].strInstructions;
+    showRecipe();
+  } else if (recipePopup.style.display === "block") {
+    recipePopup.querySelector("i").addEventListener("click", () => {
+      recipePopup.style.display = "none";
+    });
+  }
 }

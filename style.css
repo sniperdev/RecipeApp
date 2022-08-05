@@ -120,3 +120,38 @@ body {
   float: right;
   color: gray;
 }
+
+.recipePopup{
+  position: absolute;
+  z-index:1;
+  top:0;
+  left: 0;
+  width: 100vw;
+  min-height: 100vh;
+  background-color: white;
+}
+.recipePopup img{
+  width: 100vw;
+  height: 25vh;
+  object-fit: cover;
+
+  margin: 0 auto;
+  display: block;
+}
+.recipePopup h1{
+  font-size: 80px;
+  margin: 2vh 0;
+}
+.recipePopup span{
+  font-size: 40px;
+}
+.recipePopup i{
+  display: block;
+  width: 80px;
+  height: 80px;
+  text-align: center;
+  line-height: 80px;
+  font-size: 60px;
+  border-radius:50%;
+  background-color: red;
+}
